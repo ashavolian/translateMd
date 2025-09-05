@@ -67,6 +67,7 @@ class AudioManager: NSObject, ObservableObject {
         guard let recognitionRequest = recognitionRequest else { return }
         
         recognitionRequest.shouldReportPartialResults = true
+        recognitionRequest.addsPunctuation = true
         
         // Use on-device recognition if available
         if speechRecognizer?.supportsOnDeviceRecognition == true {

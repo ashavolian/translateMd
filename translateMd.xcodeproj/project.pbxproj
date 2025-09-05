@@ -16,13 +16,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A1000013 /* translateMd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = translateMd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1000002 /* translateMdApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = translateMdApp.swift; sourceTree = "<group>"; };
 		A1000004 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A1000006 /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
 		A1000008 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		A1000010 /* TranslationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationService.swift; sourceTree = "<group>"; };
 		A1000012 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1000013 /* translateMd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = translateMd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1000014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -45,14 +45,6 @@
 			);
 			sourceTree = "<group>";
 		};
-		A1000018 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A1000013 /* translateMd.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		A1000017 /* translateMd */ = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +57,14 @@
 				A1000014 /* Info.plist */,
 			);
 			path = translateMd;
+			sourceTree = "<group>";
+		};
+		A1000018 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1000013 /* translateMd.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,7 +273,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 295Q7Y2FWS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = translateMd/Info.plist;
@@ -305,7 +305,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 295Q7Y2FWS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = translateMd/Info.plist;
@@ -333,20 +333,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A1000024 /* Build configuration list for PBXProject "translateMd" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A1000025 /* Debug */,
-				A1000026 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		A1000020 /* Build configuration list for PBXNativeTarget "translateMd" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1000027 /* Debug */,
 				A1000028 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1000024 /* Build configuration list for PBXProject "translateMd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1000025 /* Debug */,
+				A1000026 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

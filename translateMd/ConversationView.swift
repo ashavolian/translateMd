@@ -16,19 +16,9 @@ struct ConversationView: View {
             VStack(spacing: 0) {
                 // Patient-facing panel (top, rotated 180°)
                 VStack {
-                    HStack {
-                        Text("Patient")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Spacer()
-                        confidenceBadge
-                    }
-                    .padding(.horizontal)
-                    .rotationEffect(.degrees(180))
-                    
                     Spacer()
                     
-                    Text(isClinicianSpeaking ? clinicianText : patientText)
+                    Text(patientText)
                         .font(.title2)
                         .multilineTextAlignment(.center)
                         .padding()
@@ -37,7 +27,6 @@ struct ConversationView: View {
                     Spacer()
                     
                     HStack {
-                        micButton(isActive: $isPatientSpeaking, label: "Patient Mic")
                         Spacer()
                         Text("🇪🇸 Spanish")
                             .font(.caption)
@@ -45,8 +34,10 @@ struct ConversationView: View {
                             .padding(.vertical, 6)
                             .background(Color.green.opacity(0.2))
                             .cornerRadius(8)
+                        Spacer()
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 10)
+                    .padding(.bottom, 10)
                     .rotationEffect(.degrees(180))
                 }
                 .frame(height: geometry.size.height / 2)
@@ -56,6 +47,7 @@ struct ConversationView: View {
                 // Clinician-facing panel (bottom, normal orientation)
                 VStack {
                     HStack {
+                        Spacer()
                         Text("🇺🇸 English")
                             .font(.caption)
                             .padding(.horizontal, 12)
@@ -63,65 +55,102 @@ struct ConversationView: View {
                             .background(Color.blue.opacity(0.2))
                             .cornerRadius(8)
                         Spacer()
-                        micButton(isActive: $isClinicianSpeaking, label: "Clinician Mic")
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 10)
+                    .padding(.top, 10)
                     
                     Spacer()
                     
-                    Text(isPatientSpeaking ? patientText : clinicianText)
+                    Text(clinicianText)
                         .font(.title2)
                         .multilineTextAlignment(.center)
                         .padding()
                     
                     Spacer()
-                    
-                    HStack {
-                        confidenceBadge
-                        Spacer()
-                        Text("Clinician")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    .padding(.horizontal)
                 }
                 .frame(height: geometry.size.height / 2)
                 .background(Color.blue.opacity(0.1))
                 .border(Color.blue, width: isClinicianSpeaking ? 3 : 1)
             }
-            .overlay(alignment: .center) {
-                // Control bar
-                HStack(spacing: 20) {
+            .overlay(alignment: .bottom) {
+                // Doctor control area - compact
+                HStack(spacing: 10) {
                     Button("End") {
                         audioManager.stopRecording()
                         dismiss()
                     }
-                    .font(.headline)
+                    .font(.caption)
                     .foregroundColor(.white)
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 6)
                     .background(Color.red)
-                    .cornerRadius(20)
+                    .cornerRadius(8)
                     
                     Button("Clear") {
                         clinicianText = ""
                         patientText = ""
                     }
-                    .font(.headline)
+                    .font(.caption)
                     .foregroundColor(.white)
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 6)
                     .background(Color.orange)
-                    .cornerRadius(20)
+                    .cornerRadius(8)
+                    
+                    // Confidence indicator
+                    confidenceBadge
+                    
+                    Spacer()
+                    
+                    // Doctor toggle button - compact
+                    Button(action: {
+                        if isClinicianSpeaking {
+                            // Switch to patient mode
+                            isClinicianSpeaking = false
+                            isPatientSpeaking = true
+                        } else {
+                            // Switch to doctor mode
+                            isClinicianSpeaking = true
+                            isPatientSpeaking = false
+                        }
+                    }) {
+                        HStack(spacing: 6) {
+                            Image(systemName: isClinicianSpeaking ? "mic.fill" : "mic")
+                                .font(.callout)
+                                .foregroundColor(.white)
+                            Text(isClinicianSpeaking ? "Doctor" : "Doctor")
+                                .font(.caption)
+                                .foregroundColor(.white)
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(isClinicianSpeaking ? Color.blue : Color.gray)
+                        .cornerRadius(10)
+                    }
                 }
-                .background(Color.black.opacity(0.8))
-                .cornerRadius(25)
-                .padding()
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+                .background(Color.black.opacity(0.7))
+                .cornerRadius(15)
+                .padding(.horizontal)
+                .padding(.bottom, 10)
             }
         }
         .navigationBarHidden(true)
         .onAppear {
             audioManager.delegate = self
+            // Start with patient speaking (recording)
+            isPatientSpeaking = true
+            isClinicianSpeaking = false
+            Task {
+                await audioManager.requestPermissions()
+                if audioManager.hasPermissions {
+                    audioManager.startRecording()
+                }
+            }
+        }
+        .onDisappear {
+            audioManager.stopRecording()
         }
     }
     
@@ -147,32 +176,6 @@ struct ConversationView: View {
         return .red
     }
     
-    @ViewBuilder
-    private func micButton(isActive: Binding<Bool>, label: String) -> some View {
-        Button(action: {
-            if isActive.wrappedValue {
-                audioManager.stopRecording()
-                isActive.wrappedValue = false
-            } else {
-                audioManager.startRecording()
-                isActive.wrappedValue = true
-                // Stop the other mic
-                if label.contains("Clinician") {
-                    isPatientSpeaking = false
-                } else {
-                    isClinicianSpeaking = false
-                }
-            }
-        }) {
-            Image(systemName: isActive.wrappedValue ? "mic.fill" : "mic")
-                .font(.title2)
-                .foregroundColor(isActive.wrappedValue ? .red : .primary)
-                .frame(width: 44, height: 44)
-                .background(Color.white)
-                .clipShape(Circle())
-                .shadow(radius: 2)
-        }
-    }
 }
 
 // MARK: - AudioManagerDelegate
