@@ -2,14 +2,14 @@ import Foundation
 import AVFoundation
 import Speech
 
-protocol AudioManagerDelegate: AnyObject {
+protocol AudioManagerDelegate {
     func didReceiveTranscription(_ text: String, confidence: Float)
     func didEncounterError(_ error: Error)
 }
 
 @MainActor
 class AudioManager: NSObject, ObservableObject {
-    weak var delegate: AudioManagerDelegate?
+    var delegate: AudioManagerDelegate?
     
     private var audioEngine = AVAudioEngine()
     private var speechRecognizer: SFSpeechRecognizer?
@@ -33,8 +33,8 @@ class AudioManager: NSObject, ObservableObject {
     func requestPermissions() async {
         do {
             // Request microphone permission
-            try await audioSession.setCategory(.playAndRecord, mode: .measurement, options: [.defaultToSpeaker])
-            try await audioSession.setActive(true)
+            try audioSession.setCategory(.playAndRecord, mode: .measurement, options: [.defaultToSpeaker])
+            try audioSession.setActive(true)
             
             // Request speech recognition permission
             let speechAuthStatus = await withCheckedContinuation { continuation in
@@ -126,16 +126,20 @@ class AudioManager: NSObject, ObservableObject {
     }
     
     deinit {
-        stopRecording()
+        Task { @MainActor [weak self] in
+            self?.stopRecording()
+        }
     }
 }
 
 // MARK: - SFSpeechRecognizerDelegate
-extension AudioManager: SFSpeechRecognizerDelegate {
-    func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
+extension AudioManager: @preconcurrency SFSpeechRecognizerDelegate {
+    nonisolated func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
         // Handle availability changes
         if !available {
-            stopRecording()
+            Task { @MainActor [weak self] in
+                self?.stopRecording()
+            }
         }
     }
 }
