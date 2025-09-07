@@ -12,6 +12,7 @@
 		A1000005 /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000006 /* ConversationView.swift */; };
 		A1000007 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000008 /* AudioManager.swift */; };
 		A1000009 /* TranslationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000010 /* TranslationService.swift */; };
+		A1000029 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000030 /* Language.swift */; };
 		A1000011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000012 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -21,6 +22,7 @@
 		A1000006 /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
 		A1000008 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		A1000010 /* TranslationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationService.swift; sourceTree = "<group>"; };
+		A1000030 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		A1000012 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1000013 /* translateMd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = translateMd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1000014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 				A1000006 /* ConversationView.swift */,
 				A1000008 /* AudioManager.swift */,
 				A1000010 /* TranslationService.swift */,
+				A1000030 /* Language.swift */,
 				A1000012 /* Assets.xcassets */,
 				A1000014 /* Info.plist */,
 			);
@@ -141,6 +144,7 @@
 				A1000005 /* ConversationView.swift in Sources */,
 				A1000007 /* AudioManager.swift in Sources */,
 				A1000009 /* TranslationService.swift in Sources */,
+				A1000029 /* Language.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

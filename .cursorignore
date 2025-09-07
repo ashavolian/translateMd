@@ -1,0 +1,20 @@
+# Cursor ignore file
+# This file tells Cursor which files to ignore, similar to .gitignore
+
+# Follow .gitignore rules by default
+**/.git/**
+**/node_modules/**
+**/.DS_Store
+**/build/**
+**/dist/**
+**/.next/**
+
+# But allow .env files for development (override .gitignore)
+!**/.env
+!**/.env.local
+!**/.env.development
+!**/.env.production
+
+# Allow other config files that might be gitignored
+!**/config.local.js
+!**/config.development.js
