@@ -1,4 +1,4 @@
-## translateMd — Clinical Interpreter (Prototype)
+## translate - IOS — Clinical Interpreter (Prototype)
 
 > Prototype for clinician–patient translation. Fast, simple UI. Uses Apple on-device TTS and the public OpenAI Realtime API for translation/streaming (for now).
 
